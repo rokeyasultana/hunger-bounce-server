@@ -14,10 +14,46 @@ const uri = `mongodb+srv://${process.env.DB_ADMIN}:${process.env.DB_PASS}@cluste
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
-console.log(uri);
+
 
 async function run (){
 try{
+    // breakfast collection
+    const breakfastsCollection = client.db('hunger-bounce').collection('breakfast');
+
+    // lunch collection
+    const lunchesCollection = client.db('hunger-bounce').collection('lunch');
+
+    //dinner collection
+    const dinnersCollection = client.db('hunger-bounce').collection('dinner');
+
+
+   // get breakfast 
+    app.get('/breakfast', async (req, res)=>{
+        const query = {};
+        const cursor = breakfastsCollection.find(query);
+        const breakfasts = await cursor.toArray();
+        res.send(breakfasts) ;
+      });
+
+   // get lunch
+    app.get('/lunch', async (req, res)=>{
+        const query = {};
+        const cursor = lunchesCollection.find(query);
+        const lunches = await cursor.toArray();
+        res.send(lunches) ;
+      });
+
+   // get dinner
+    app.get('/dinner', async (req, res)=>{
+        const query = {};
+        const cursor = dinnersCollection.find(query);
+        const dinners = await cursor.toArray();
+        res.send(dinners) ;
+      });
+
+
+
    
 }
 
