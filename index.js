@@ -1,7 +1,7 @@
 const express = require('express')
 require('dotenv').config();
 const cors = require('cors');
-const { MongoClient, ServerApiVersion, CURSOR_FLAGS } = require('mongodb');
+const { MongoClient, ServerApiVersion, CURSOR_FLAGS, ObjectId } = require('mongodb');
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -36,6 +36,15 @@ try{
         res.send(breakfasts) ;
       });
 
+      //get breakfast by id
+
+      app.get('/breakfast/:id',async(req,res)=>{
+        const id = req.params.id;
+        const query = {_id:new ObjectId(id)};
+        const result = await breakfastsCollection.findOne(query);
+        res.send(result);
+      })
+
    // get lunch
     app.get('/lunch', async (req, res)=>{
         const query = {};
@@ -43,6 +52,16 @@ try{
         const lunches = await cursor.toArray();
         res.send(lunches) ;
       });
+
+//get lunch by id
+
+            app.get('/lunch/:id',async(req,res)=>{
+              const id = req.params.id;
+              const query = {_id: new ObjectId(id)};
+              const result = await lunchesCollection.findOne(query);
+              res.send(result);
+            })
+      
 
    // get dinner
     app.get('/dinner', async (req, res)=>{
@@ -52,6 +71,14 @@ try{
         res.send(dinners) ;
       });
 
+      //get dinner by id
+
+      app.get('/dinner/:id',async(req,res)=>{
+        const id = req.params.id;
+        const query = {_id:new ObjectId(id)};
+        const result = await dinnersCollection.findOne(query);
+        res.send(result);
+      })
 
 
    
