@@ -27,6 +27,12 @@ try{
     //dinner collection
     const dinnersCollection = client.db('hunger-bounce').collection('dinner');
 
+    //order collection
+    const ordersCollection = client.db('hunger-bounce').collection('orders');
+
+    //users collection
+    const usersCollection = client.db('hunger-bounce').collection('users');
+
 
    // get breakfast 
     app.get('/breakfast', async (req, res)=>{
@@ -78,7 +84,21 @@ try{
         const query = {_id:new ObjectId(id)};
         const result = await dinnersCollection.findOne(query);
         res.send(result);
-      })
+      });
+
+      //post order
+      app.post('/orders', async (req, res) => {
+        orders = req.body;
+        const result = await ordersCollection.insertOne(orders)
+        res.send(result);
+     }); 
+     
+      //post user
+      app.post('/users', async (req, res) => {
+        users = req.body;
+        const result = await usersCollection.insertOne(orders)
+        res.send(result);
+     }); 
 
 
    
