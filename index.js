@@ -93,11 +93,19 @@ try{
         res.send(result);
      }); 
 
-      //post user
+      //post users
       app.post('/users', async (req, res) => {
         users = req.body;
         const result = await usersCollection.insertOne(users)
         res.send(result);
+     }); 
+     
+      //get users
+      app.get('/users', async (req, res) => {
+        const query = {};
+        const cursor = usersCollection.find(query);
+        const users = await cursor.toArray();
+        res.send(users) ;
      }); 
 
 
