@@ -92,11 +92,11 @@ try{
         const result = await ordersCollection.insertOne(orders)
         res.send(result);
      }); 
-     
+
       //post user
       app.post('/users', async (req, res) => {
         users = req.body;
-        const result = await usersCollection.insertOne(orders)
+        const result = await usersCollection.insertOne(users)
         res.send(result);
      }); 
 
